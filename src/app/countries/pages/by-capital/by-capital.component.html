@@ -1,0 +1,36 @@
+<div class="animate__animated animate__fadeIn animate__faster">
+  <h2>Por Capital</h2>
+  <hr>
+
+  <div class="row">
+    <div class="col">
+      <app-country-input (onEnter)="search($event)" (onDebounce)="suggestion($event)" placeholder="Buscar capital..."></app-country-input>
+    </div>
+  </div>
+
+  <ul class="list-group">
+    <li *ngFor="let suggestedCountry of suggestedCountries"
+        class="list-group-item list-group-item-action">
+      <a class="nav-link" [routerLink]="['/country', suggestedCountry.cca2]">
+        {{ suggestedCountry.name.common }}
+      </a>
+    </li>
+    <li *ngIf="name" class="list-group-item list-group-item-action">
+      <a class="nav-link" (click)="search(name)">
+        Buscar "{{ name }}"
+      </a>
+    </li>
+  </ul>
+
+  <hr>
+</div>
+
+
+<div class="alert alert-danger" *ngIf="hasError">
+  No se encontró nada con el nombre {{ name }}
+</div>
+
+<div class="row" *ngIf="countries.length">
+  <div class="col">
+    <app-country-table [countries]="countries"></app-country-table>
+</div>
